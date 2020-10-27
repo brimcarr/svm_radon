@@ -14,7 +14,7 @@ for a in range(1000):
 # Pick a random distribution of points around 2 centers
 # "make_blobs create multiclass datasets by allocating each class one or more
 # normally-distributed clusters of points. )
-    X, y = make_blobs(n_samples=50, centers=2, center_box=(-20.0, 20.0), random_state=None)
+    X, y = make_blobs(n_samples=40, centers=2, center_box=(-20.0, 20.0), random_state=None)
 # Fit the model, don't regularize for illustration purposes
     clf = svm.SVC(kernel='linear', C=10000)
     clf.fit(X, y)
@@ -35,7 +35,7 @@ for a in range(1000):
             ax = plt.gca()
             xlim = ax.get_xlim()
             ylim = ax.get_ylim()
-            plt.axis('equal')
+            plt.axis('scaled')
 # Create grid to evaluate model.
             xx = np.linspace(xlim[0], xlim[1], 30)
             yy = np.linspace(ylim[0], ylim[1], 30)
@@ -59,3 +59,9 @@ others=len(supportvecs)-twos-threes-nonlinsep
 # Display the results.
 print("2 sv's:",twos,"\n","3 sv's:",threes,"\n","non-linearly separable:",
         nonlinsep,"\n","other:",others)
+if others==0:
+    pass
+# A warning that the machine precision isn't high enough to distinguish which
+# points are support vectors and which aren't. Can resolve by hand if needed.
+else: print("Warning: Higher level of precision needed to resolve whether the",
+                others,"other cases are 2 or 3 support vector cases.")
